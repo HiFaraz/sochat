@@ -11,7 +11,7 @@ In each lab these files will contain progress from the previous lab. In this lab
 
 ## Starting your terminal sessions
 
-In each lab you will open at least two terminal sessions (preferrably a single window with two vertically split panes).
+In labs 1-3 you will open at least two terminal sessions (preferrably a single window with two vertically split panes).
 
 In the first terminal, start the Node.js REPL with:
 

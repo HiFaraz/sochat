@@ -18,15 +18,15 @@ c.on('error', err => console.error('Error', err));
 
 // Chat commands
 const cmds = {};
-cmds.join = server => {
+cmds.server = addr => {
   if (joined) {
-    console.error('Error: you are already in a chat session. You have to leave it first before joining another session.');
+    console.error('Error: you are already in a chat session. You have to quit it first before joining another session.');
     return;
   }
-  const [host, port] = server.split(':');
+  const [host, port] = addr.split(':');
   c.connect(port, host);
 }
-cmds.leave = () => {
+cmds.quit = () => {
   if (!joined) {
     console.error('Error: you are not in a chat session.');
     return;
@@ -48,7 +48,7 @@ function send(msg) {
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: ' '
+  prompt: ''
 });
 
 rl.prompt();
@@ -59,7 +59,7 @@ rl.on('line', (line) => {
   }
   rl.prompt();
 }).on('close', () => {
-  cmds.leave();
+  cmds.quit();
   process.exit(0);
 });
 
@@ -82,7 +82,3 @@ function execute(line) {
   // Send as message.
   send(line);
 }
-
-
-
-

@@ -19,34 +19,34 @@ s.on('connection', c => {
   clients.push(c);
   console.log('connect', c.remoteAddress);
 
+  c.nickname = 'Anonymous';
   c.write('Server says: Welcome to the chat session!');
+  
+  broadcastExcept(`${c.nickname} (${c.remoteAddress}) has joined the chat session.`, clients, c);
 
-  let nickname = 'Anonymous';
-  broadcastExcept(`${nickname} (${c.remoteAddress}) has joined the chat session.`, clients, c);
-
-  c.on('close', () => console.log('close', c.remoteAddress));
+  c.on('close', () => console.log(`end ${c.nickname} (${c.remoteAddress})`));
 
   c.on('data', d => {
     const m = d.toString();
-    console.log('msg', c.remoteAddress, m);
+    console.log(`msg ${c.nickname} (${c.remoteAddress}) ${m}`);
 
     // Handle nickname changes.
     if (m.startsWith('/nick ')) {
       const newNickname = m.split(' ')[1]; // Assume non-empty nickname.
-      broadcastExcept(`${nickname} (${c.remoteAddress}) has changed their nickname to ${newNickname}.`, clients, c);
-      c.write(`You have changed your nickname from ${nickname} to ${newNickname}.`);
-      nickname = newNickname;
+      broadcastExcept(`${c.nickname} (${c.remoteAddress}) has changed their nickname to ${newNickname}.`, clients, c);
+      c.write(`You have changed your nickname from ${c.nickname} to ${newNickname}.`);
+      c.nickname = newNickname;
       return;
     }
 
     // Handle chat messages.
-    broadcastExcept(`${nickname} says: ${m}`, clients, c);
+    broadcastExcept(`${c.nickname} says: ${m}`, clients, c);
   });
 
   c.on('end', () => {
     clients.splice(clients.indexOf(c), 1);
-    console.log('end', c.remoteAddress);
-    broadcast(`${nickname} (${c.remoteAddress}) has left the chat session.`, clients);
+    console.log(`end ${c.nickname} (${c.remoteAddress})`);
+    broadcast(`${c.nickname} (${c.remoteAddress}) has left the chat session.`, clients);
   });
 });
 

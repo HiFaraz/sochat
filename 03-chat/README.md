@@ -10,21 +10,21 @@ We will build the individual chat features as pure functions that can be integra
 
 Here's what we'll build:
 
-  - as a user I can join a chat session
+  - as a user I can join a chat server session
   - as a user I can leave the chat session
   - as a user I can message everyone in the chat session
   - as a user I am informed whenever anyone else joins or leaves the chat session
   - as a user I can set my nickname
   - as a user I am informed whenever anyone changes their nickname
 
-## Join and leave a chat session
+## Join and leave a chat server session
 
 This will just create and end a connection:
 
 ```js
 // Client session:
-function join(server) {
-  const [host, port] = server.split(':');
+function server(addr) {
+  const [host, port] = addr.split(':');
   c.connect(port, host);
 }
 function leave() {
@@ -36,7 +36,7 @@ You can test this locally:
 
 ```js
 // Client session
-join(':8080');
+server(':8080');
 leave();
 ```
 

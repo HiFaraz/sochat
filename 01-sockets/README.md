@@ -1,6 +1,6 @@
 # Work with sockets
 
-In this lab we will learn how to sockets for a client and server and pass messages between them.
+In this lab we will learn how to create sockets for a client and server and pass messages between them.
 
 ## Create the sockets
 

@@ -21,16 +21,16 @@ node ./
 
 ```sh
 # Client session:
- /join :8080
+/server :8080
 Welcome to the chat session.
- /nick CoolDev
+/nick CoolDev
 Your nickname is now CoolDev.
- Hi everone!
+Hi everone!
 AwesomeQE says: Hey CoolDev!
- Nice to see you folks! Gtg!
- /leave
+Nice to see you folks! Gtg!
+/quit
 You have left the chat session.
- /exit
+/exit
 ```
 
 ---
